@@ -1,16 +1,14 @@
 package com.yiwu.coustomview;
 
-import android.os.Bundle;
+import android.view.View;
 
 import com.yiwu.coustomview.base.BaseActivity;
 import com.yiwu.coustomview.databinding.ActivityMainBinding;
+import com.yiwu.coustomview.view.LevelView;
 
-public class MainActivity extends BaseActivity<ActivityMainBinding> {
+public class MainActivity extends BaseActivity<ActivityMainBinding> implements View.OnClickListener {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
+    private LevelView mLevelView;
 
     @Override
     protected int getContentViewId() {
@@ -19,6 +17,16 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
     @Override
     protected void init() {
+        mViewDataBinding.btnAdd.setOnClickListener(this);
+        mLevelView = mViewDataBinding.level;
+    }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_add:
+                mLevelView.setLevel(mLevelView.getLevel() + 1);
+                break;
+        }
     }
 }

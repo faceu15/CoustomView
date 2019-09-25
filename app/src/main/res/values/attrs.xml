@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="LevelView">
+        <attr name="level" format="integer" />
+        <attr name="drawableStar" format="reference" />
+        <attr name="drawableMoon" format="reference" />
+        <attr name="drawableSun" format="reference" />
+        <attr name="drawableCrown" format="reference" />
+        <attr name="drawableHeight" format="integer" />
+    </declare-styleable>
+
+</resources>

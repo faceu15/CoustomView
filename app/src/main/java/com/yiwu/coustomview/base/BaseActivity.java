@@ -2,7 +2,6 @@ package com.yiwu.coustomview.base;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 
 import androidx.annotation.LayoutRes;
 import androidx.annotation.Nullable;
@@ -21,8 +20,8 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
     protected T mViewDataBinding;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         mViewDataBinding = DataBindingUtil.setContentView(this, getContentViewId());
         mContext = this;
         init();
