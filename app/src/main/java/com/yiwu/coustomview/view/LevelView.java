@@ -16,6 +16,8 @@ import androidx.annotation.Nullable;
 import com.yiwu.coustomview.R;
 import com.yiwu.coustomview.util.DisplayUtil;
 
+import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
+
 /**
  * @Author:Administrator
  * @Date: Created in 19:48 2019/9/23
@@ -102,14 +104,32 @@ public class LevelView extends View {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        //获取宽-测量规则的模式和大小
+        int widthMode = MeasureSpec.getMode(widthMeasureSpec);
+        int widthSize = MeasureSpec.getSize(widthMeasureSpec);
 
-        int width = getSize(widthMeasureSpec, drawableHeight);
-        int height = getSize(heightMeasureSpec, drawableHeight);
+        int heightMode = MeasureSpec.getMode(heightMeasureSpec);
+        int heightSize = MeasureSpec.getSize(heightMeasureSpec);
 
-        int viewWidth = starBitmap.getWidth() * level + starBitmap.getWidth() / 3 * (level - 1) + getPaddingLeft() + getPaddingEnd();
-        int viewHeight = starBitmap.getHeight() + getPaddingTop() + getPaddingBottom();
+        int crown = level / 64;
+        int sun = (level % 64) / 16;
+        int moon = (level % 16) / 4;
+        int star = level % 4;
 
-        setMeasuredDimension(viewWidth, viewHeight);
+        int count = crown + sun + moon + star;
+
+        Log.d("DDDD", "onMeasure ----- crown==" + crown + " sun==" + sun + " moon==" + moon + " star==" + star);
+
+        if (getLayoutParams().width == WRAP_CONTENT && getLayoutParams().height == WRAP_CONTENT) {
+            widthSize = count * starBitmap.getWidth() + starBitmap.getWidth() / 3 * (count - 1) + getPaddingLeft() + getPaddingEnd();
+            heightSize = starBitmap.getHeight() + getPaddingTop() + getPaddingBottom();
+        } else if (getLayoutParams().width == WRAP_CONTENT) {
+            widthSize = count * starBitmap.getWidth() + starBitmap.getWidth() / 3 * (count - 1) + getPaddingLeft() + getPaddingEnd();
+        } else if (getLayoutParams().height == WRAP_CONTENT) {
+            heightSize = starBitmap.getHeight() + getPaddingTop() + getPaddingBottom();
+        }
+
+        setMeasuredDimension(widthSize, heightSize);
     }
 
     @Override
@@ -120,32 +140,29 @@ public class LevelView extends View {
         int top = getPaddingTop();
 
         int starNum = level % 4;
-        int moonNum = (level % 64) % 16 / 4;
+        int moonNum = (level % 16) / 4;
         int sunNum = (level % 64) / 16;
         int crownNum = level / 64;
 
+        Log.d("DDDD", " onDraw ------ crown=" + crownNum + " sun=" + sunNum + " moon=" + moonNum + " star=" + starNum);
         int nextLeft = 0;
 
         for (int i = 0; i < crownNum; i++) {
-            Log.d("DDDD", "draw crown" + i);
             canvas.drawBitmap(crownBitmap, (crownBitmap.getWidth() + bitmapPadding) * i + left, top, bitmapPaint);
         }
         nextLeft = (crownBitmap.getWidth() + bitmapPadding) * crownNum + left;
 
         for (int j = 0; j < sunNum; j++) {
-            Log.d("DDDD", "draw sun" + j);
             canvas.drawBitmap(sunBitmap, nextLeft + (sunBitmap.getWidth() + bitmapPadding) * j, top, bitmapPaint);
         }
         nextLeft += (sunBitmap.getWidth() + bitmapPadding) * sunNum;
 
         for (int m = 0; m < moonNum; m++) {
-            Log.d("DDDD", "draw moon " + m);
             canvas.drawBitmap(moonBitmap, nextLeft + (moonBitmap.getWidth() + bitmapPadding) * m, top, bitmapPaint);
         }
         nextLeft += (moonBitmap.getWidth() + bitmapPadding) * moonNum;
 
         for (int n = 0; n < starNum; n++) {
-            Log.d("DDDD", "draw star " + n);
             canvas.drawBitmap(starBitmap, nextLeft + (moonBitmap.getWidth() + bitmapPadding) * n, top, bitmapPaint);
         }
 
@@ -158,25 +175,5 @@ public class LevelView extends View {
     public void setLevel(int level) {
         this.level = level;
         requestLayout();
-    }
-
-    private int getSize(int measureSpec, int defaultSize) {
-        int result = defaultSize;
-
-        int mode = MeasureSpec.getMode(measureSpec);
-        int size = MeasureSpec.getSize(measureSpec);
-
-        switch (mode) {
-            case MeasureSpec.UNSPECIFIED:
-                result = defaultSize;
-                break;
-            case MeasureSpec.AT_MOST:
-                result = size;
-                break;
-            case MeasureSpec.EXACTLY:
-                result = size;
-                break;
-        }
-        return result;
     }
 }
