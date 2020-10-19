@@ -10,4 +10,14 @@
         <attr name="drawableHeight" format="integer" />
     </declare-styleable>
 
+
+    <declare-styleable name="RingGradeView">
+        <attr name="android:textSize" format="dimension" />
+        <attr name="backgroundColor" format="color" />
+        <attr name="ring_width" format="dimension" />
+        <attr name="paddingAround" format="dimension" />
+        <attr name="value" format="integer" />
+        <attr name="maxValue" format="integer" />
+    </declare-styleable>
+
 </resources>

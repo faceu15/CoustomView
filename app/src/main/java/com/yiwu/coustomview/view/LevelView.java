@@ -8,7 +8,6 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.Nullable;
@@ -118,7 +117,7 @@ public class LevelView extends View {
 
         int count = crown + sun + moon + star;
 
-        Log.d("DDDD", "onMeasure ----- crown==" + crown + " sun==" + sun + " moon==" + moon + " star==" + star);
+//        Log.d("DDDD", "onMeasure ----- crown==" + crown + " sun==" + sun + " moon==" + moon + " star==" + star);
 
         if (getLayoutParams().width == WRAP_CONTENT && getLayoutParams().height == WRAP_CONTENT) {
             widthSize = count * starBitmap.getWidth() + starBitmap.getWidth() / 3 * (count - 1) + getPaddingLeft() + getPaddingEnd();
@@ -144,7 +143,7 @@ public class LevelView extends View {
         int sunNum = (level % 64) / 16;
         int crownNum = level / 64;
 
-        Log.d("DDDD", " onDraw ------ crown=" + crownNum + " sun=" + sunNum + " moon=" + moonNum + " star=" + starNum);
+//        Log.d("DDDD", " onDraw ------ crown=" + crownNum + " sun=" + sunNum + " moon=" + moonNum + " star=" + starNum);
         int nextLeft = 0;
 
         for (int i = 0; i < crownNum; i++) {

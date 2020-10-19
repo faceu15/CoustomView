@@ -25,7 +25,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements V
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_add:
-                mLevelView.setLevel(mLevelView.getLevel() + 1);
+//                mLevelView.setLevel(mLevelView.getLevel() + 1);
+                mViewDataBinding.ringView.setValue(mViewDataBinding.ringView.getValue() + 20);
                 break;
         }
     }
