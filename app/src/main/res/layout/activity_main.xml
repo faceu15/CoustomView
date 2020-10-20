@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:textSize="40sp"
             app:background="@color/background_color"
-            app:value="0" />
+            app:value="20" />
 
     </LinearLayout>
 </layout>

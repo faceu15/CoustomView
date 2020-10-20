@@ -93,8 +93,6 @@ public class RingGradeView extends View {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-
         int widthMode = MeasureSpec.getMode(widthMeasureSpec);
         int heightMode = MeasureSpec.getMode(heightMeasureSpec);
         int width = getMeasuredWidth();
@@ -105,8 +103,10 @@ public class RingGradeView extends View {
 
         if (widthMode == MeasureSpec.AT_MOST || heightMode == MeasureSpec.AT_MOST) {
             mViewRadius = mTextWidth + mPaddingAround + mRingWidth;
+            setMeasuredDimension((int) mViewRadius * 2, (int) mViewRadius * 2);
         } else {
             mViewRadius = width >> 1;
+            setMeasuredDimension(widthMeasureSpec, heightMeasureSpec);
         }
         float ringRadius = mViewRadius - mPaddingAround;
 
